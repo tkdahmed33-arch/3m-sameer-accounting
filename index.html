@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3m sameer accounting</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --e950:#102B36; --e900:#173D48; --e800:#1E5360; --e700:#286B73; --e600:#32817F; --e500:#4C9A91; --e100:#DAECE3;
+    --g700:#92503A; --g600:#AD6040; --g500:#C1704C; --g400:#D28B69; --g300:#E7AD8A;
+    --i50:#FFFDF7; --i100:#FBF7EC; --i200:#F4EEDE; --i300:#EBE3CE;
+    --ink:#172F38; --ink7:#2B4A51; --mut:#3F5A5D; --line:#DDD6C7; --line2:#EDE6D7;
+    --terra:#A64A3E; --amber:#7E5812;
+    --sh:0 2px 8px rgba(30,50,40,.08),0 14px 28px -20px rgba(20,40,30,.30);
+    --sh2:0 6px 16px rgba(30,50,40,.10),0 28px 56px -28px rgba(20,40,30,.35);
+    --font:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif; --serif:"Amiri","Reem Kufi",serif; --disp:"Reem Kufi","IBM Plex Sans Arabic",sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font);font-size:15px;line-height:1.7;font-weight:500;color:var(--ink);min-height:100dvh;
+    background:radial-gradient(1200px 600px at 100% -5%,rgba(201,169,97,.10),transparent 55%),radial-gradient(900px 500px at -10% 100%,rgba(18,135,110,.08),transparent 60%),var(--i100);background-attachment:fixed}
+  .hide{display:none!important}
+  h2,h3{font-family:var(--serif);color:var(--e900);margin:0;line-height:1.4}
+  h2{font-size:clamp(24px,2.4vw,32px);margin-bottom:14px} h3{font-size:18px;margin-bottom:12px}
+  ::selection{background:var(--g300);color:var(--e900)}
+  ::-webkit-scrollbar{width:9px;height:9px} ::-webkit-scrollbar-thumb{background:var(--g400);border-radius:9px;border:2px solid transparent;background-clip:content-box}
+
+  .card{background:var(--i50);border:1px solid var(--line);border-radius:22px;padding:clamp(16px,2vw,24px);margin-bottom:16px;box-shadow:var(--sh);transition:box-shadow .3s var(--ease)}
+  .card:hover{box-shadow:var(--sh2)}
+  input,select,textarea,button{font:inherit;color:inherit}
+  input,select,textarea{width:100%;min-height:46px;margin-bottom:8px;padding:11px 15px;border:1px solid var(--line);border-radius:16px;background:#FFFDF7;outline:none;box-shadow:inset 0 1px 2px rgba(20,40,30,.04);transition:.25s var(--ease)}
+  input:hover,select:hover,textarea:hover{border-color:var(--g400)}
+  input:focus,select:focus,textarea:focus{border-color:var(--g500);background:#fff;box-shadow:0 0 0 4px rgba(201,169,97,.16)}
+  select{appearance:none;-webkit-appearance:none;padding-left:38px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.6 6 6.4l5-4.8' fill='none' stroke='%239C7A3C' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 15px center}
+  input[type=file]{padding:8px}
+  label{display:block;font-size:12.5px;font-weight:700;color:var(--ink7);margin:0 2px 5px}
+  ::placeholder{color:#A0AFAD;font-weight:400}
+
+  button{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 22px;border:1px solid transparent;border-radius:16px;cursor:pointer;
+    font-weight:700;font-size:14px;color:#FBEFD2;background:linear-gradient(150deg,var(--e700),var(--e900));box-shadow:inset 0 1px 0 rgba(201,169,97,.25),0 8px 18px -10px rgba(10,81,69,.6);transition:transform .25s var(--ease),box-shadow .3s,background .25s}
+  button::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:40%;background:linear-gradient(90deg,transparent,rgba(201,169,97,.5),transparent);transform:translateX(-150%) skewX(-20deg);transition:transform .7s}
+  button:hover:not(:disabled)::after{transform:translateX(400%) skewX(-20deg)}
+  button:hover:not(:disabled){background:linear-gradient(150deg,var(--e600),var(--e800))}
+  button:active{transform:translateY(1px) scale(.99)} button:disabled{opacity:.5;cursor:not-allowed}
+  button.gray{color:var(--e800);background:linear-gradient(150deg,#F5EFE0,var(--i300));border-color:rgba(201,169,97,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+  button.gray:hover:not(:disabled){background:linear-gradient(150deg,#EFE7D3,#E0D6BC)}
+  button.red{color:var(--terra);background:linear-gradient(150deg,#FBEDEB,#F4D9D4);border-color:rgba(166,74,62,.26);box-shadow:none}
+  button.red:hover:not(:disabled){background:linear-gradient(150deg,#F8E0DC,#F0C7BF)}
+  button.sm{min-height:36px;padding:7px 14px;font-size:12.5px;border-radius:12px}
+
+  /* الهيكل */
+  #app{display:grid;grid-template-columns:270px minmax(0,1fr);grid-template-rows:72px 1fr;min-height:100dvh}
+  #top{grid-column:1/-1;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,3vw,40px);
+    background:rgba(255,253,247,.97);border-bottom:1px solid var(--line);box-shadow:0 8px 24px -22px rgba(20,40,30,.5);color:var(--ink)}
+  #top::after{content:"";position:absolute;left:22%;right:22%;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--g500),transparent)}
+  #top .tb{display:flex;align-items:center;gap:12px;font-family:var(--disp);font-size:17px;color:var(--e900)}
+  #top button{background:linear-gradient(150deg,#F5EFE0,var(--i300));color:var(--e800);border-color:rgba(201,169,97,.4);box-shadow:none}
+  .brand-mark{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:13px;font-family:var(--serif);font-size:21px;font-weight:700;color:var(--g300);
+    background:linear-gradient(150deg,var(--e700),var(--e900));box-shadow:inset 0 1px 0 rgba(201,169,97,.35),0 8px 24px -8px rgba(2,30,25,.6)}
+  .brand-mark::after{content:"";position:absolute;inset:3px;border-radius:10px;border:1px solid rgba(201,169,97,.35)}
+  #who{font-size:13px;color:var(--mut);margin-inline-end:8px}
+  #side{position:relative;padding:20px 14px;background:linear-gradient(180deg,#FFFDF7,#FBF7EC);border-left:1px solid var(--line)}
+  #side::before{content:"";position:absolute;top:0;bottom:0;left:0;width:3px;background:linear-gradient(180deg,transparent,var(--g500) 20%,var(--e500) 80%,transparent);opacity:.5}
+  #side button{display:flex;justify-content:flex-start;gap:12px;width:100%;min-height:50px;margin-bottom:6px;padding:10px 14px;text-align:right;border-radius:16px;font-size:15px;font-weight:600;
+    color:var(--ink7);background:none;border:0;box-shadow:none}
+  #side button::after{display:none}
+  #side button:hover{background:#F5EFE0;color:var(--e800);transform:translateX(-3px)}
+  #side button.active{color:#F5E9CD;font-weight:700;background:linear-gradient(135deg,var(--e800),var(--e900));box-shadow:inset 0 1px 0 rgba(201,169,97,.25),0 12px 26px -14px rgba(4,50,43,.7)}
+  #side button.active::after{display:block;left:auto;right:0;top:50%;bottom:auto;width:4px;height:26px;transform:translateY(-50%);border-radius:4px 0 0 4px;background:linear-gradient(180deg,var(--g300),var(--g500));box-shadow:0 0 14px rgba(201,169,97,.7)}
+  #main{padding:clamp(20px,3vw,40px) clamp(14px,4vw,56px) 64px;min-width:0;max-width:1400px;width:100%;margin:0 auto}
+
+  /* الدخول */
+  #login{min-height:100dvh;display:grid;place-items:center;padding:clamp(14px,4vw,60px);
+    background:radial-gradient(ellipse 60% 50% at 25% 15%,rgba(201,169,97,.22),transparent 60%),radial-gradient(ellipse 55% 45% at 75% 85%,rgba(10,81,69,.15),transparent 60%),radial-gradient(circle,#FCF8EE,#F1EADB)}
+  .lcard{position:relative;width:min(460px,100%);padding:48px clamp(24px,4vw,46px) 40px;text-align:center;background:linear-gradient(165deg,#FFFEFA,#FBF4E4);border-radius:8px;
+    box-shadow:inset 0 0 0 1px rgba(201,169,97,.55),inset 0 0 0 4px #FFFDF7,inset 0 0 0 5px rgba(201,169,97,.35),0 0 0 1px rgba(201,169,97,.4),0 30px 60px -25px rgba(4,30,25,.35)}
+  .lcard .brand-mark{width:56px;height:56px;border-radius:17px;font-size:28px;margin:0 auto 14px}
+  .lcard h2{font-size:34px;margin:0}
+  .lcard h2::after{content:"";display:block;width:110px;height:2px;margin:16px auto 0;background:linear-gradient(90deg,transparent,var(--g500) 25%,var(--g600) 50%,var(--g500) 75%,transparent)}
+  .lcard .hint{color:var(--mut);margin:22px 0 24px;font-size:14.5px}
+  .lcard input{min-height:54px;border-radius:8px;border:1.5px solid rgba(201,169,97,.35);font-size:16px}
+  .lcard button{width:100%;min-height:56px;border-radius:8px;font-size:16px;margin-top:6px}
+  .err{color:var(--terra);min-height:1.3em;font-size:.9rem}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .row{display:flex;gap:10px;align-items:stretch} .row>*{flex:1}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:22px}
+  .kpi{position:relative;overflow:hidden;display:flex;gap:14px;align-items:center;padding:20px 20px;background:linear-gradient(150deg,#FFFDF7,#FBF7EC);border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh);transition:transform .4s var(--ease),box-shadow .4s,border-color .3s}
+  .kpi::before{content:"";position:absolute;top:0;right:24%;left:24%;height:1.5px;background:linear-gradient(90deg,transparent,var(--g500),transparent)}
+  .kpi:hover{transform:translateY(-4px);box-shadow:var(--sh2);border-color:rgba(201,169,97,.45)}
+  .kpi .ic{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:18px;background:linear-gradient(150deg,var(--g300),var(--g500));box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 6px 16px -6px rgba(184,147,77,.5)}
+  .kpi small{display:block;color:var(--ink7);font-size:12.5px;font-weight:600}
+  .kpi b{display:block;font-size:clamp(20px,2vw,27px);font-weight:700;line-height:1.25;color:var(--e900);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+  .kpi b.pos{color:var(--e600)} .kpi b.neg{color:var(--terra)}
+  .pos{color:var(--e600)} .neg{color:var(--terra)}
+  .chips span{display:inline-block;margin:0 0 8px 8px;padding:5px 16px;border-radius:999px;font-size:13px;background:var(--i50);border:1px solid rgba(201,169,97,.3);box-shadow:0 1px 0 rgba(255,255,255,.6) inset}
+  .badge{display:inline-flex;align-items:center;gap:7px;padding:5px 13px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid transparent;white-space:nowrap}
+  .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.85}
+  .b-inv{background:linear-gradient(150deg,#FBF1DC,#F5E3BF);color:var(--amber);border-color:rgba(142,100,23,.22)}
+  .b-pay{background:linear-gradient(150deg,#E6F2EB,#D3E8DD);color:var(--e700);border-color:rgba(18,135,110,.24)}
+
+  .ents{display:grid;gap:10px;margin-bottom:16px}
+  .ent{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 18px;align-items:center;padding:15px 18px;background:linear-gradient(150deg,#FFFDF7,#FBF7EC);border:1px solid var(--line);border-radius:18px;transition:.3s var(--ease)}
+  .ent:hover{border-color:rgba(201,169,97,.5);box-shadow:var(--sh)}
+  .ent .em{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0}
+  .ent .ecat{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--e900)}
+  .ent .edet{color:var(--ink7);font-size:14px;overflow-wrap:anywhere}
+  .ent .eamt{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ent .emeta{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;color:var(--mut);font-size:12.5px;padding-top:8px;border-top:1px dashed var(--line2)}
+  .b-out{background:linear-gradient(150deg,#FBEDEB,#F4D9D4);color:var(--terra);border-color:rgba(166,74,62,.22)}
+  @media(max-width:720px){.ent{padding:13px 14px}.ent .eamt{font-size:19px}.ent .ecat{font-size:16px}}
+  .ucard{cursor:default}.ucard:hover{transform:none}
+  .scroll{overflow:auto;scrollbar-width:thin;scrollbar-color:var(--g400) transparent}
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;text-align:right}
+  th{position:sticky;top:0;z-index:2;padding:14px 12px;white-space:nowrap;font-family:var(--font);font-size:14px;font-weight:700;color:var(--e800);background:linear-gradient(180deg,#FBF6E8,#F1E9D2);border-bottom:2px solid rgba(201,169,97,.45);text-align:right}
+  th:first-child{border-radius:0 12px 0 0} th:last-child{border-radius:12px 0 0 0}
+  td{padding:13px 12px;border-bottom:1px solid var(--line2);white-space:nowrap;color:var(--ink7);vertical-align:middle}
+  td.wrap{white-space:normal;min-width:150px}
+  tbody tr:nth-child(even),tr:nth-child(even) td{background:rgba(244,238,222,.35)}
+  tr:hover td{background:rgba(201,169,97,.08)} tr:last-child td{border-bottom:0}
+
+  /* الموردين / الأيام */
+  .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+  .scard{position:relative;overflow:hidden;padding:20px;cursor:pointer;background:linear-gradient(150deg,#FFFDF7,#FBF7EC);border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh);transition:transform .4s var(--ease),box-shadow .4s,border-color .3s}
+  .scard::before{content:"";position:absolute;top:0;right:24%;left:24%;height:1.5px;background:linear-gradient(90deg,transparent,var(--g500),transparent)}
+  .scard:hover{transform:translateY(-4px);box-shadow:var(--sh2);border-color:rgba(201,169,97,.5)}
+  .scard .nm{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--e900)} .scard .cd{color:var(--mut);font-size:12.5px}
+  .scard .bal{margin:12px 0 10px;font-size:24px;font-weight:700;font-variant-numeric:tabular-nums} .scard .mini{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:12.5px}
+  .avatar{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:18px;color:var(--e900);background:linear-gradient(150deg,var(--g300),var(--g500));box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 4px 14px -4px rgba(184,147,77,.55)}
+  .tx{padding:16px 18px;margin-bottom:12px;background:linear-gradient(150deg,#FFFDF7,#FBF7EC);border:1px solid var(--line);border-radius:16px;transition:.3s var(--ease)}
+  .tx:hover{border-color:rgba(201,169,97,.45);box-shadow:0 10px 26px -14px rgba(201,169,97,.4)}
+  .tx .h{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap} .tx .amt{font-size:20px;font-weight:700;color:var(--e900)} .tx .meta{margin-top:6px;color:var(--mut);font-size:12.5px}
+  .irow{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 90px;gap:8px;align-items:center} .irow b{text-align:center;margin-bottom:8px}
+  .tot{font-size:18px;margin:6px 0 14px;font-family:var(--serif)}
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px} .tabs button{flex:none}
+
+  #modal{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(4,30,25,.62);color:#F5E9CD}
+  #modal img{max-width:92vw;max-height:84vh;border-radius:22px;background:#fff;border:1px solid rgba(201,169,97,.4);box-shadow:0 24px 70px -22px rgba(10,45,36,.6)}
+
+  
+  .sgrid{grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr))}
+  body{overflow-x:hidden}
+  @media(max-width:720px){
+    .card{padding:14px;border-radius:18px} h2{font-size:23px}
+    .card.scroll,.scroll{overflow:visible}
+    table,tbody{display:block;width:100%}
+    tr.hrow{display:none}
+    tr{display:block;margin:0 0 12px;padding:6px 14px;background:var(--i50);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh)}
+    td{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:9px 0;white-space:normal;text-align:left;border-bottom:1px dashed var(--line2);background:none!important}
+    td:last-child{border-bottom:0} td:empty{display:none}
+    td::before{content:attr(data-label);flex:none;font-weight:700;color:var(--g700);font-size:12.5px;text-align:right}
+    td[colspan]::before{display:none}
+    .tx .h{flex-direction:column} .scard{padding:16px} .lcard{padding:34px 20px 28px}
+    .tabs button{flex:1 1 auto;padding:10px 12px} #modal img{max-width:96vw}
+  }
+
+  @media(max-width:900px){#app{grid-template-columns:200px minmax(0,1fr)}}
+  @media(max-width:720px){
+    #app{grid-template-columns:1fr;grid-template-rows:64px auto 1fr} #top{padding:0 12px} #who{display:none}
+    #side{display:flex;gap:6px;overflow-x:auto;padding:10px;border-left:0;border-bottom:1px solid var(--line)} #side::before{display:none}
+    #side button{width:auto;white-space:nowrap;margin:0;min-height:44px;flex:none}
+    .grid2{grid-template-columns:1fr} .irow{grid-template-columns:1fr 1fr} .irow b{grid-column:1/-1;text-align:right}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px} .kpi{padding:14px 12px;gap:10px} .kpi .ic{width:36px;height:36px;font-size:15px}
+    input,select,textarea{font-size:16px} .row{flex-wrap:wrap}
+  }
+  @media(max-width:400px){.kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="login"><div class="lcard">
+  <h2>نظام الحسابات</h2><p class="hint">سجّل دخولك للمتابعة</p>
+  <input id="u" placeholder="الكود" inputmode="text" autocomplete="username">
+  <input id="p" type="password" placeholder="الباسورد" onkeydown="if(event.key==='Enter')doLogin()">
+  <div class="err" id="lerr"></div>
+  <button onclick="doLogin()">دخول</button>
+</div></div>
+
+<div id="app" class="hide">
+  <div id="top"><b class="tb"><span class="brand-mark">ح</span>نظام الحسابات</b><span><span id="who"></span> &nbsp; <button class="sm" onclick="doLogout()">خروج</button></span></div>
+  <nav id="side"></nav>
+  <main id="main"></main>
+</div>
+<div id="modal" class="hide" onclick="this.classList.add('hide')"><img id="mimg" alt=""><small>اضغط في أي مكان للإغلاق</small></div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbwvVo2d0VV2bxn30DmxcJjQzYU5UDdOC13mP8QA4Fl2dourz_ILTc1k0yipo7yjdG-8/exec';
+let TOKEN = null, USER = null, STATE = null, META = null, SUP = null, CUR = null, FS = { from: '', to: '', kind: '' };
+const $ = id => document.getElementById(id);
+// صيغة احترام قبل الاسم (عرض بس، الاسم في الشيت زي ما هو)
+const mr = n => { n = String(n || '').trim(); return !n ? '' : (/^م\s*\//.test(n) ? n : 'م / ' + n); };
+const fmt = n => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// بيكلم الـ API بتاع Apps Script (text/plain عشان مفيش preflight)
+async function rawCall(fn, args) {
+  let res;
+  try { res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn, args }), redirect: 'follow' }); }
+  catch (e) { throw new Error('تعذر الاتصال بالسيرفر، اتأكد من الإنترنت'); }
+  let data;
+  try { data = await res.json(); } catch (e) { throw new Error('رد غير متوقع من السيرفر'); }
+  if (!data.ok) throw new Error(data.error || 'حصل خطأ');
+  return data.result;
+}
+async function call(fn, ...args) {
+  try { return await rawCall(fn, args); }
+  catch (e) {
+    alert(e.message);
+    if (TOKEN && /الجلسة انتهت|اتغيّر أو اتحذف/.test(e.message)) doLogout();
+    throw e;
+  }
+}
+const dayName = d => { try { return new Date(d + 'T00:00:00').toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return d; } };
+
+const MENUS = {
+  branch:     [['rev','💰 الإيرادات'], ['exp','🧾 المصروفات'], ['sum','📊 ملخص الفرع']],
+  accountant: [['ledger','📒 السجل (كل الشركة)'], ['treasury','🏛️ خزنة الشركة'], ['bal','🏪 أرصدة الفروع'], ['sup','🚚 الموردين'], ['Days','📅 الأيام']],
+  monitor:    [['ledger','📒 السجل (كل الشركة)'], ['treasury','🏛️ خزنة الشركة'], ['bal','🏪 أرصدة الفروع'], ['sup','🚚 الموردين'], ['Days','📅 الأيام'], ['users','👥 المستخدمين والصلاحيات']],
+  supplier:   [['sup','🚚 الموردين']]
+};
+
+async function doLogin() {
+  $('lerr').textContent = '';
+  const r = await call('login', $('u').value, $('p').value);
+  if (!r.ok) { $('lerr').textContent = r.error; return; }
+  TOKEN = r.token; USER = r.user;
+  try { sessionStorage.setItem('tk', TOKEN); } catch (e) {}
+  startApp();
+}
+async function doLogout() {
+  try { await rawCall('logout', [TOKEN]); } catch (e) {}
+  try { sessionStorage.removeItem('tk'); } catch (e) {}
+  TOKEN = USER = STATE = META = SUP = CUR = DAYSLIST = DAYDATA = BD = null;
+  $('main').innerHTML = ''; $('side').innerHTML = ''; $('modal').classList.add('hide');
+  $('app').classList.add('hide'); $('login').classList.remove('hide');
+  $('u').value = ''; $('p').value = ''; $('lerr').textContent = '';
+}
+
+async function startApp() {
+  $('login').classList.add('hide'); $('app').classList.remove('hide');
+  $('who').textContent = mr(USER.name) + ' — ' + (USER.job || USER.role) + (USER.branch ? ' — ' + USER.branch : '');
+  const menu = MENUS[USER.role];
+  $('side').innerHTML = menu.map(m => `<button data-k="${m[0]}" onclick="show('${m[0]}')">${m[1]}</button>`).join('');
+  if (USER.role === 'branch') await refreshBranch();
+  show(menu[0][0]);
+}
+async function show(k) {
+  document.querySelectorAll('#side button').forEach(b => b.classList.toggle('active', b.dataset.k === k));
+  if (USER.role === 'branch') return renderBranch(k);
+  if (k === 'ledger') return renderLedger('السجل — بيانات الشركة');
+  if (k === 'treasury') return renderTreasury();
+  if (k === 'bal') return renderBalances();
+  if (k === 'sup') return renderSuppliers();
+  if (k === 'users') return renderUsers();
+  if (k === 'Days') return renderDays();
+}
+
+/* ---------- مكونات مشتركة ---------- */
+const kindCls = k => { k = String(k || ''); return k === 'إيراد' ? 'pos' : (k.indexOf('مورد') >= 0 ? '' : 'neg'); };
+function kpi(ic, label, val, cls) { return `<div class="kpi"><div class="ic">${ic}</div><div><small>${label}</small><b class="${cls || ''}">${val}</b></div></div>`; }
+const kindBadge = k => { k = String(k || ''); return k === 'إيراد' ? 'b-pay' : (k.indexOf('مورد') >= 0 ? 'b-inv' : 'b-out'); };
+function amtHtml(x) {
+  if (x.dir === 'in') return `<span class="pos">+${fmt(x.amount)}</span>`;
+  if (x.dir === 'inv') return `<span style="color:var(--amber)">${fmt(x.amount)}</span>`;
+  return `<span class="neg">−${fmt(x.amount)}</span>`;
+}
+function ledgerTable(rows, showBranch) {
+  if (!rows.length) return '<div class="card">لا توجد بيانات</div>';
+  return '<div class="ents">' + rows.map(x => `<div class="ent">
+    <div class="em"><span class="badge ${kindBadge(x.kind)}">${esc(x.kind)}</span>${x.cat ? `<span class="ecat">${esc(x.cat)}</span>` : ''}${x.detail ? `<span class="edet">${esc(x.detail)}</span>` : ''}</div>
+    <div class="eamt">${amtHtml(x)}</div>
+    <div class="emeta"><span>🕘 ${esc(x.ts)}</span><span>📅 ${esc(x.day)}</span>${showBranch ? `<span>🏪 ${esc(x.branch || 'الشركة')}</span>` : ''}
+      ${x.person ? `<span>👤 ${esc(x.person)}</span>` : ''}<span>✍️ سجّله: ${esc(mr(x.by))}</span>
+      ${x.receipt ? `<button class="sm" onclick="viewReceipt('${esc(x.receipt)}')">📎 عرض الإيصال</button>` : ''}</div></div>`).join('') + '</div>';
+}
+async function viewReceipt(id) {
+  const url = await call('getReceipt', TOKEN, id);
+  $('mimg').src = url; $('modal').classList.remove('hide');
+}
+function table(head, rows) {
+  return `<div class="card scroll"><table><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr>` +
+    rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('') + '</table></div>';
+}
+function compress(file) {
+  return new Promise((res, rej) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const k = Math.min(1, 1280 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+      res(c.toDataURL('image/jpeg', 0.72));
+    };
+    img.onerror = () => rej(new Error('تعذر قراءة الصورة')); img.src = url;
+  });
+}
+const pickImage = async id => { const f = $(id) && $(id).files[0]; return f ? await compress(f) : ''; };
+
+/* ---------- السجل مع الفلاتر ---------- */
+async function renderLedger(title, preface) {
+  const m = $('main'); m.innerHTML = 'جاري التحميل...';
+  if (!META) META = await call('ledgerMeta', TOKEN);
+  const opt = (a, all) => `<option value="">${all}</option>` + a.map(x => `<option>${esc(x)}</option>`).join('');
+  m.innerHTML = (preface || '') + `<h2>${title}</h2><div class="card"><div class="filters">
+    ${USER.role === 'branch' ? '' : `<div><label>الفرع</label><select id="fb">${opt(META.branches, 'كل الفروع + الموردين')}</select></div>`}
+    <div><label>من يوم</label><input type="date" id="ff"></div>
+    <div><label>إلى يوم</label><input type="date" id="ft"></div>
+    <div><label>النوع</label><select id="fk">${opt(META.kinds, 'الكل')}</select></div>
+    <div><label>سجّله</label><select id="fu">${opt(META.users, 'الكل')}</select></div>
+    <div><label>بحث (بند / سبب / موظف / سلفة 15...)</label><input id="fq"></div></div>
+    <div class="row"><button onclick="runLedger()">🔍 بحث</button><button class="gray" onclick="renderLedger('${title}', window._pre)">مسح الفلاتر</button></div></div>
+    <div id="lres"></div>`;
+  runLedger();
+}
+async function runLedger() {
+  const g = id => ($(id) ? $(id).value : '');
+  const r = await call('queryLedger', TOKEN, { branch: g('fb'), from: g('ff'), to: g('ft'), kind: g('fk'), by: g('fu'), q: g('fq') });
+  const t = r.totals, isB = USER.role === 'branch';
+  $('lres').innerHTML = `<div class="kpis">${kpi('💰', 'الإيرادات', fmt(t.in), 'pos')}${kpi('🧾', 'المصروفات والتوريدات', fmt(t.out), 'neg')}${isB ? kpi('🔐', 'خزنة الفرع', fmt(r.treasury), r.treasury < 0 ? 'neg' : 'pos') : kpi('⚖️', 'الصافي', fmt(t.net))}
+      ${isB ? '' : kpi('🚚', 'فواتير الموردين', fmt(t.inv)) + kpi('💸', 'مدفوع للموردين', fmt(t.pay)) + kpi('🏢', 'مصروفات الشركة', fmt(t.cexp)) + kpi('⏳', 'مديونية الشركة للموردين', fmt(r.supplierDebt), r.supplierDebt > 0 ? 'neg' : 'pos')}</div>
+    <div class="chips">${Object.keys(t.byKind).map(k => `<span>${esc(k)}: <b>${fmt(t.byKind[k])}</b></span>`).join('')}
+      <span>عدد الحركات: <b>${r.count}</b>${r.count > r.rows.length ? ' (معروض أحدث ' + r.rows.length + ')' : ''}</span></div>` + ledgerTable(r.rows, !isB);
+}
+
+/* ---------- الفرع ---------- */
+async function refreshBranch() { STATE = await call('getBranchState', TOKEN); USER = STATE.user; }
+function kpis() {
+  const s = STATE.summary;
+  return `<div class="kpis">${kpi('🏦', 'رصيد أول اليوم', fmt(s.opening))}${kpi('💰', 'إيرادات اليوم', fmt(s.revenueDay), 'pos')}${kpi('🧾', 'مصروفات اليوم', fmt(s.expenseDay), 'neg')}
+    ${kpi('🔐', 'خزنة الفرع الآن', fmt(s.remainingTotal), s.remainingTotal < 0 ? 'neg' : 'pos')}</div>`;
+}
+function dayBar() {
+  if (STATE.openDay) return `<div class="card row" style="align-items:center"><div>📅 اليوم المفتوح: <b>${esc(STATE.openDay)}</b></div>
+    <button class="red" style="flex:0 0 auto" onclick="doClose()">إغلاق اليوم</button></div>`;
+  return `<div class="kpis">${kpi('🔐', 'خزنة الفرع الآن', fmt(STATE.summary.remainingTotal), STATE.summary.remainingTotal < 0 ? 'neg' : 'pos')}</div><div class="card"><h3>📅 فتح يوم جديد</h3><div class="row"><input type="date" id="dt" value="${STATE.suggestedDate}"><button onclick="doOpen()">فتح</button></div></div>`;
+}
+async function doOpen() { STATE = await call('openDay', TOKEN, $('dt').value); show('rev'); }
+async function doClose() {
+  if (!confirm('تحذير: بعد إغلاق اليوم مش هتقدر تفتحه تاني ولا تضيف عليه أي بيانات. متأكد؟')) return;
+  STATE = await call('closeDay', TOKEN); show('sum');
+}
+function renderBranch(k) {
+  const m = $('main'), s = STATE.summary;
+  if (k === 'rev') {
+    m.innerHTML = dayBar() + (STATE.openDay ? kpis() + `<div class="card"><h3>➕ إضافة إيرادات</h3><div id="items"></div>
+      <button class="gray" onclick="addItem()">+ بند</button><br><br>
+      <textarea id="notes" rows="2" placeholder="ملاحظات"></textarea>
+      <button onclick="sendRev(this)">إرسال</button></div>
+      <h3>إيرادات اليوم</h3>` + ledgerTable(STATE.entries.filter(x => x.dir === 'in'), false) : '');
+    if (STATE.openDay) addItem();
+  } else if (k === 'exp') {
+    m.innerHTML = dayBar() + (STATE.openDay ? kpis() + `<div class="card"><h3>➕ إضافة مصروف / سلفة / توريد</h3>
+      <label>النوع</label><select id="et" onchange="expForm()">${STATE.expenseTypes.map(t => `<option>${t}</option>`).join('')}</select>
+      <div id="advBox" class="hide"><label>نوع السلفة</label><select id="ek" onchange="expForm()">${STATE.advanceKinds.map(t => `<option>${t}</option>`).join('')}</select>
+        <div id="pBox" class="hide"><label>اسم الموظف (إجباري — للسلفة الفردية فقط)</label><input id="ep"></div></div>
+      <label>المبلغ</label><input id="ea" type="number" min="0" step="any">
+      <label id="erl">السبب (إجباري)</label><input id="er">
+      <div id="rcBox" class="hide"><label>صورة الإيصال (اختياري)</label><input id="rc" type="file" accept="image/*"></div>
+      <button onclick="sendExp(this)">إرسال</button></div>
+      <h3>مصروفات اليوم</h3>` + ledgerTable(STATE.entries.filter(x => x.dir === 'out'), false) : '');
+    if (STATE.openDay) expForm();
+  } else {
+    window._pre = dayBar() + kpis() + `<div class="card"><h3>مصروفات اليوم حسب النوع</h3>` +
+      (Object.keys(s.byType).map(t => `<div>${esc(t)}: <b>${fmt(s.byType[t])}</b></div>`).join('') || 'لا يوجد') + `</div>`;
+    renderLedger('تفاصيل الفرع (كل الأيام)', window._pre);
+  }
+}
+function expForm() {
+  const t = $('et').value;
+  $('advBox').classList.toggle('hide', t !== 'سلفة');
+  $('pBox').classList.toggle('hide', !(t === 'سلفة' && $('ek').value === 'سلفة فردية'));
+  $('rcBox').classList.toggle('hide', STATE.receiptTypes.indexOf(t) < 0);
+  $('erl').textContent = t === 'مصروف' ? 'السبب (إجباري)' : 'السبب (اختياري)';
+}
+function addItem() { const d = document.createElement('div'); d.className = 'row'; d.innerHTML = '<input class="bi" placeholder="البند"><input class="ba" type="number" min="0" step="any" placeholder="المبلغ">'; $('items').appendChild(d); }
+async function sendRev(btn) {
+  const items = [...document.querySelectorAll('#items .row')].map(r => ({ item: r.querySelector('.bi').value, amount: r.querySelector('.ba').value }));
+  btn.disabled = true;
+  try { STATE = await call('addRevenue', TOKEN, items, $('notes').value); show('rev'); } finally { btn.disabled = false; }
+}
+async function sendExp(btn) {
+  btn.disabled = true;
+  try {
+    const receipt = $('rcBox').classList.contains('hide') ? '' : await pickImage('rc');
+    STATE = await call('addExpense', TOKEN, { type: $('et').value, kind: $('ek').value, party: $('ep').value, amount: $('ea').value, reason: $('er').value, receipt });
+    show('exp');
+  } catch (e) {} finally { btn.disabled = false; }
+}
+
+/* ---------- الموردين ---------- */
+const balTxt = b => b > 0 ? `<span class="neg">له عندنا ${fmt(b)}</span>` : b < 0 ? `<span class="pos">دفعنا زيادة ${fmt(-b)}</span>` : `<span class="pos">متصفّي ✓</span>`;
+
+async function renderSuppliers() { $('main').innerHTML = 'جاري التحميل...'; SUP = await call('listSuppliers', TOKEN); drawSupList(); }
+function drawSupList() {
+  const L = SUP.suppliers;
+  const owe = L.reduce((s, x) => s + Math.max(x.balance, 0), 0), paid = L.reduce((s, x) => s + x.payments, 0), inv = L.reduce((s, x) => s + x.invoices, 0);
+  $('main').innerHTML = `<div class="row" style="align-items:center;margin-bottom:12px"><h2 style="margin:0">🚚 الموردين</h2>
+      ${SUP.canCreate ? '<button style="flex:0 0 auto" onclick="$(\'newSup\').classList.toggle(\'hide\')">＋ مورد جديد</button>' : ''}</div>
+    ${SUP.canCreate ? `<div id="newSup" class="card hide"><h3>إنشاء مورد جديد</h3><div class="grid2">
+      <div><label>كود المورد</label><input id="nc" value="${esc(SUP.nextCode)}"></div><div><label>اسم المورد</label><input id="nn"></div>
+      <div><label>التليفون</label><input id="np"></div><div><label>ملاحظات / عنوان</label><input id="nx"></div></div>
+      <button onclick="doCreateSup(this)">حفظ المورد</button></div>` : ''}
+    <div class="kpis">${kpi('👥', 'عدد الموردين', L.length)}${kpi('📦', 'إجمالي الفواتير', fmt(inv))}${kpi('💸', 'إجمالي المدفوع', fmt(paid), 'pos')}${kpi('⏳', 'إجمالي المستحق لهم', fmt(owe), 'neg')}</div>
+    <input id="sq" placeholder="🔍 ابحث بالاسم أو الكود..." oninput="supCards()">
+    <div id="sgrid" class="sgrid"></div>`;
+  supCards();
+}
+function supCards() {
+  const q = ($('sq') ? $('sq').value : '').trim().toLowerCase();
+  const L = SUP.suppliers.filter(s => !q || (s.name + ' ' + s.code + ' ' + s.phone).toLowerCase().indexOf(q) >= 0);
+  $('sgrid').innerHTML = L.map(s => `<div class="scard" onclick="openSup('${esc(s.code)}')">
+    <div class="row" style="align-items:center;gap:10px"><div class="avatar" style="flex:none">${esc(s.name.slice(0, 1))}</div>
+      <div><div class="nm">${esc(s.name)}</div><div class="cd">${esc(s.code)} ${s.phone ? '· ' + esc(s.phone) : ''}</div></div></div>
+    <div class="bal">${balTxt(s.balance)}</div>
+    <div class="mini"><span>فواتير: ${fmt(s.invoices)}</span><span>مدفوع: ${fmt(s.payments)}</span></div>
+    <div class="mini" style="margin-top:4px"><span>${s.count} حركة</span><span>${s.last ? 'آخر حركة: ' + esc(s.last) : 'لا توجد حركات'}</span></div></div>`).join('') ||
+    '<div class="card">لا يوجد موردين</div>';
+}
+async function doCreateSup(btn) {
+  btn.disabled = true;
+  try { SUP = await call('createSupplier', TOKEN, { code: $('nc').value, name: $('nn').value, phone: $('np').value, notes: $('nx').value }); drawSupList(); }
+  catch (e) {} finally { btn.disabled = false; }
+}
+async function openSup(code) { $('main').innerHTML = 'جاري التحميل...'; FS = { from: '', to: '', kind: '' }; CUR = await call('getSupplier', TOKEN, code); drawSupplier(); }
+
+function drawSupplier() {
+  const s = CUR.supplier, t = CUR.totals, w = CUR.canWrite;
+  $('main').innerHTML = `<button class="gray sm" onclick="renderSuppliers()">→ كل الموردين</button>
+    <div class="card row" style="align-items:center;margin-top:12px;gap:14px"><div class="avatar" style="flex:none;width:54px;height:54px;font-size:1.4rem">${esc(s.name.slice(0, 1))}</div>
+      <div style="flex:3"><h2 style="margin:0">${esc(s.name)}</h2><div style="color:var(--mut)">${esc(s.code)} ${s.phone ? '· 📞 ' + esc(s.phone) : ''} ${s.notes ? '· ' + esc(s.notes) : ''}</div></div></div>
+    <div class="kpis">${kpi('📦', 'إجمالي الفواتير', fmt(t.invoices))}${kpi('💸', 'إجمالي المدفوع', fmt(t.payments), 'pos')}
+      ${kpi('⏳', t.balance >= 0 ? 'المتبقي له عندنا' : 'دفعنا زيادة', fmt(Math.abs(t.balance)), t.balance > 0 ? 'neg' : 'pos')}</div>
+    ${w ? `<div class="tabs"><button onclick="openForm('inv')">📦 فاتورة توريد خامات</button><button onclick="openForm('pay')">💸 تسجيل دفعة</button></div><div id="formBox"></div>` : ''}
+    <div class="card"><h3>🧱 الخامات اللي وردها (إجمالي)</h3>${CUR.materials.length ? `<div class="scroll"><table><tr><th>الخامة</th><th>الوحدة</th><th>إجمالي الكمية</th><th>إجمالي القيمة</th><th>آخر توريد</th></tr>` +
+      CUR.materials.map(m => `<tr><td>${esc(m.name)}</td><td>${esc(m.unit)}</td><td>${fmt(m.qty)}</td><td>${fmt(m.total)}</td><td>${esc(m.last)}</td></tr>`).join('') + '</table></div>' : 'لا توجد خامات بعد'}</div>
+    <div class="card"><h3>🕘 سجل الحركات</h3><div class="filters"><div><label>من يوم</label><input type="date" id="tf" value="${FS.from}" onchange="txFilter()"></div>
+      <div><label>إلى يوم</label><input type="date" id="tt" value="${FS.to}" onchange="txFilter()"></div>
+      <div><label>النوع</label><select id="tk" onchange="txFilter()"><option value="">الكل</option><option ${FS.kind === 'فاتورة' ? 'selected' : ''} value="فاتورة">فواتير توريد</option><option ${FS.kind === 'دفعة' ? 'selected' : ''} value="دفعة">دفعات</option></select></div></div>
+      <div id="txlist"></div></div>`;
+  txList();
+}
+function txFilter() { FS = { from: $('tf').value, to: $('tt').value, kind: $('tk').value }; txList(); }
+function txList() {
+  const L = CUR.txs.filter(x => (!FS.from || x.date >= FS.from) && (!FS.to || x.date <= FS.to) && (!FS.kind || x.type === FS.kind));
+  $('txlist').innerHTML = L.map(x => {
+    const inv = x.type === 'فاتورة';
+    return `<div class="tx"><div class="h"><div><span class="badge ${inv ? 'b-inv' : 'b-pay'}">${inv ? '📦 فاتورة توريد' : '💸 دفعة'}</span>
+        <b style="margin-right:8px">${esc(dayName(x.date))}</b>${x.invoiceNo ? ` <span style="color:var(--mut)">· فاتورة رقم ${esc(x.invoiceNo)}</span>` : ''}${x.method ? ` <span style="color:var(--mut)">· ${esc(x.method)}</span>` : ''}</div>
+        <div class="amt ${inv ? '' : 'pos'}">${fmt(x.amount)}</div></div>
+      ${inv && x.items.length ? `<div class="scroll"><table style="margin-top:8px"><tr><th>الخامة</th><th>الكمية</th><th>الوحدة</th><th>سعر الوحدة</th><th>الإجمالي</th></tr>` +
+        x.items.map(i => `<tr><td>${esc(i.name)}</td><td>${fmt(i.qty)}</td><td>${esc(i.unit)}</td><td>${fmt(i.price)}</td><td>${fmt(i.total)}</td></tr>`).join('') + '</table></div>' : ''}
+      ${x.notes ? `<div style="margin-top:6px">${esc(x.notes)}</div>` : ''}
+      <div class="meta">اتسجلت: ${esc(x.ts)} · بواسطة ${esc(mr(x.by))} ${x.receipt ? `&nbsp; <button class="sm" onclick="viewReceipt('${esc(x.receipt)}')">📎 ${inv ? 'صورة الفاتورة' : 'صورة الإيصال'}</button>` : ''}</div></div>`;
+  }).join('') || '<div style="color:var(--mut)">لا توجد حركات</div>';
+}
+
+const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+function openForm(kind) {
+  const box = $('formBox');
+  if (kind === 'inv') {
+    box.innerHTML = `<div class="card"><h3>📦 فاتورة توريد خامات</h3><div class="grid2">
+      <div><label>تاريخ الفاتورة</label><input type="date" id="fd" value="${todayStr()}"></div><div><label>رقم الفاتورة (اختياري)</label><input id="fn"></div></div>
+      <div id="irows"></div><button class="gray sm" onclick="invRow()">+ خامة</button>
+      <div class="tot">إجمالي الفاتورة: <b id="itot">0</b></div>
+      <textarea id="fx" rows="2" placeholder="ملاحظات (اختياري)"></textarea>
+      <label>صورة الفاتورة (اختياري)</label><input id="fi" type="file" accept="image/*">
+      <button onclick="sendInv(this)">حفظ الفاتورة</button></div>`;
+    invRow();
+  } else {
+    box.innerHTML = `<div class="card"><h3>💸 تسجيل دفعة للمورد</h3><div class="grid2">
+      <div><label>تاريخ الدفع</label><input type="date" id="fd" value="${todayStr()}"></div><div><label>المبلغ</label><input id="fa" type="number" min="0" step="any"></div>
+      <div><label>طريقة الدفع</label><select id="fm"><option>نقدي</option><option>تحويل بنكي</option><option>شيك</option><option>محفظة إلكترونية</option></select></div>
+      <div><label>ملاحظات (اختياري)</label><input id="fx"></div></div>
+      <label>صورة الإيصال (اختياري)</label><input id="fi" type="file" accept="image/*">
+      <button onclick="sendPay(this)">حفظ الدفعة</button></div>`;
+  }
+  box.scrollIntoView({ behavior: 'smooth' });
+}
+function invRow() {
+  const d = document.createElement('div'); d.className = 'irow';
+  d.innerHTML = '<input class="in" placeholder="الخامة"><input class="iq" type="number" step="any" placeholder="الكمية" oninput="calcInv()"><input class="iu" placeholder="الوحدة (كجم/متر...)"><input class="ip" type="number" step="any" placeholder="سعر الوحدة" oninput="calcInv()"><b class="it">0</b>';
+  $('irows').appendChild(d);
+}
+function calcInv() {
+  let t = 0;
+  document.querySelectorAll('#irows .irow').forEach(r => { const v = (+r.querySelector('.iq').value || 0) * (+r.querySelector('.ip').value || 0); r.querySelector('.it').textContent = fmt(v); t += v; });
+  $('itot').textContent = fmt(t);
+}
+async function sendInv(btn) {
+  btn.disabled = true;
+  try {
+    const items = [...document.querySelectorAll('#irows .irow')].map(r => ({ name: r.querySelector('.in').value, qty: r.querySelector('.iq').value, unit: r.querySelector('.iu').value, price: r.querySelector('.ip').value }));
+    CUR = await call('addSupplierInvoice', TOKEN, { code: CUR.supplier.code, date: $('fd').value, invoiceNo: $('fn').value, items, notes: $('fx').value, image: await pickImage('fi') });
+    drawSupplier();
+  } catch (e) {} finally { btn.disabled = false; }
+}
+async function sendPay(btn) {
+  btn.disabled = true;
+  try {
+    CUR = await call('addSupplierPayment', TOKEN, { code: CUR.supplier.code, date: $('fd').value, amount: $('fa').value, method: $('fm').value, notes: $('fx').value, image: await pickImage('fi') });
+    drawSupplier();
+  } catch (e) {} finally { btn.disabled = false; }
+}
+
+/* ---------- محاسب / مراقب ---------- */
+async function renderBalances() {
+  $('main').innerHTML = 'جاري التحميل...';
+  const rows = await call('branchBalances', TOKEN);
+  $('main').innerHTML = '<h2>🏪 أرصدة الفروع</h2>' + table(['الفرع', 'الإيرادات', 'المصروفات والتوريدات', 'خزنة الفرع', 'اليوم المفتوح'],
+    rows.map(r => [r.branch, fmt(r.revenue), fmt(r.expenses), fmt(r.remaining), r.openDay || 'مغلق']));
+}
+/* ---------- الأيام: يوم ← فروع اليوم ← تفاصيل الفرع ---------- */
+// الاختيار: أصفار (الباقي مبينزلش عن صفر) أو بالسالب. الخزنة ثابتة ومبتتأثرش.
+let DAYSLIST = null, DAYDATA = null, BD = null, DAYMODE = 'zero', CURV = 'days';
+const dv = o => DAYMODE === 'zero' ? o.remaining : o.net;
+const sgn = v => `<span class="${v < 0 ? 'neg' : 'pos'}">${fmt(v)}</span>`;
+function modeBar() {
+  return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div><b>عرض باقي اليوم</b><div style="color:var(--mut);font-size:13px">الخزنة ثابتة ومبتتأثرش بالاختيار ده، لأنها نتيجة كل الأيام</div></div>
+    <div class="tabs" style="margin:0"><button class="${DAYMODE === 'zero' ? '' : 'gray'}" onclick="setMode('zero')">٠ أصفار</button>
+      <button class="${DAYMODE === 'neg' ? '' : 'gray'}" onclick="setMode('neg')">− بالسالب</button></div></div>`;
+}
+// رقم "باقي اليوم" بعنوان واضح، وفي وضع الأصفار بيوضّح الرقم الفعلي لو كان سالب
+const balBox = o => `<div class="cd" style="margin-top:10px">باقي اليوم${DAYMODE === 'zero' && o.net < 0 ? ' (الفعلي ' + fmt(o.net) + ')' : ''}</div><div class="bal" style="margin-top:0">${sgn(dv(o))}</div>`;
+function setMode(m) { DAYMODE = m; if (CURV === 'days') drawDays(); else if (CURV === 'day') drawDay(); else drawBranchDay(); }
+
+async function renderDays() { $('main').innerHTML = 'جاري التحميل...'; DAYSLIST = await call('listDays', TOKEN); CURV = 'days'; drawDays(); }
+function drawDays() {
+  $('main').innerHTML = '<h2>📅 الأيام</h2>' + modeBar() + '<div class="sgrid">' + (DAYSLIST.map(d => `<div class="scard" onclick="openDay('${esc(d.date)}')">
+    <div class="nm">${esc(dayName(d.date))}</div><div class="cd">${esc(d.date)}</div>
+    ${balBox(d)}
+    <div class="mini"><span>إيرادات: ${fmt(d.revenue)}</span><span>مصروفات: ${fmt(d.expenses)}</span></div>
+    <div class="mini" style="margin-top:4px"><span>${d.branches} فرع</span><span>${d.open ? '🟢 ' + d.open + ' مفتوح' : '🔒 الكل مغلق'}</span></div></div>`).join('') || '<div class="card">لا توجد أيام بعد</div>') + '</div>';
+}
+async function openDay(date) {
+  $('main').innerHTML = 'جاري التحميل...';
+  DAYDATA = await call('getDay', TOKEN, date); CURV = 'day'; drawDay();
+}
+function drawDay() {
+  const t = DAYDATA.totals, date = DAYDATA.date;
+  $('main').innerHTML = `<button class="gray sm" onclick="renderDays()">→ كل الأيام</button><h2 style="margin-top:12px">📅 ${esc(dayName(date))}</h2>` + modeBar() +
+    `<div class="kpis">${kpi('💰', 'إجمالي الإيرادات', fmt(t.revenue), 'pos')}${kpi('🧾', 'إجمالي المصروفات', fmt(t.expenses), 'neg')}${kpi('⚖️', 'باقي اليوم', fmt(dv(t)), dv(t) < 0 ? 'neg' : '')}${kpi('🏪', 'عدد الفروع', DAYDATA.branches.length)}</div>
+    <div class="sgrid">` + DAYDATA.branches.map(b => `<div class="scard" onclick="openBranchDay('${esc(b.branch)}','${esc(date)}')">
+      <div class="row" style="align-items:center"><div class="nm">🏪 ${esc(b.branch)}</div><span class="badge ${b.status === 'Open' ? 'b-pay' : 'b-inv'}" style="flex:none">${b.status === 'Open' ? 'مفتوح' : 'مغلق'}</span></div>
+      ${balBox(b)}
+      <div class="mini"><span>إيرادات: ${fmt(b.revenue)}</span><span>مصروفات: ${fmt(b.expenses)}</span></div>
+      <div class="mini" style="margin-top:4px"><span>🔐 خزنة الفرع بنهاية اليوم</span><b class="${b.treasury < 0 ? 'neg' : 'pos'}">${fmt(b.treasury)}</b></div>
+      <div class="mini" style="margin-top:4px"><span>فتحه: ${esc(mr(b.openedBy))}</span><span>${b.closedBy ? 'قفله: ' + esc(mr(b.closedBy)) : ''}</span></div></div>`).join('') + '</div>';
+}
+async function openBranchDay(branch, date) {
+  $('main').innerHTML = 'جاري التحميل...';
+  BD = await call('getBranchDay', TOKEN, branch, date); BD.branch = branch; BD.date = date; CURV = 'bday'; drawBranchDay();
+}
+function drawBranchDay() {
+  const r = BD, t = r.totals, i = r.info, branch = r.branch, date = r.date;
+  $('main').innerHTML = `<button class="gray sm" onclick="openDay('${esc(date)}')">→ فروع اليوم</button>
+    <h2 style="margin-top:12px">🏪 ${esc(branch)} — ${esc(dayName(date))}</h2>` + modeBar() + `
+    <div class="kpis">${kpi('🏦', 'رصيد أول اليوم', fmt(r.opening))}${kpi('💰', 'إيرادات اليوم', fmt(t.revenue), 'pos')}${kpi('🧾', 'مصروفات اليوم', fmt(t.expenses), 'neg')}
+      ${kpi('⚖️', 'باقي اليوم', fmt(dv(t)), dv(t) < 0 ? 'neg' : '')}${kpi('🔐', 'خزنة الفرع بنهاية هذا اليوم', fmt(r.cumulative), r.cumulative < 0 ? 'neg' : 'pos')}${kpi('🏦', 'خزنة الفرع الآن (كل الأيام)', fmt(r.current), r.current < 0 ? 'neg' : 'pos')}</div>
+    <div class="card"><div class="grid2">
+      <div>🟢 <b>فتح اليوم:</b> ${esc(mr(i.openedBy))} <span style="color:var(--mut)">— ${esc(i.openedAt)}</span></div>
+      <div>${i.status === 'Open' ? '🕓 <b>اليوم لسه مفتوح</b>' : `🔒 <b>قفل اليوم:</b> ${esc(mr(i.closedBy))} <span style="color:var(--mut)">— ${esc(i.closedAt)}</span>`}</div></div></div>
+    ${Object.keys(t.byType).length ? '<div class="chips">' + Object.keys(t.byType).map(k => `<span>${esc(k)}: <b>${fmt(t.byType[k])}</b></span>`).join('') + '</div>' : ''}
+    <h3>💰 الإيرادات</h3>${ledgerTable(r.entries.filter(x => x.dir === 'in'), false)}
+    <h3>🧾 المصروفات والسلف والتوريدات</h3>${ledgerTable(r.entries.filter(x => x.dir === 'out'), false)}`;
+}
+
+/* ---------- حساب الشركة: كاش الفروع + جيديا في نفس الخزنة ---------- */
+let TF = { from: '', to: '' }, TTAB = 'all';
+async function renderTreasury() {
+  $('main').innerHTML = 'جاري التحميل...';
+  const r = await call('companyTreasury', TOKEN, TF), t = r.totals;
+  const rcpt = id => id ? `<button class="sm" onclick="viewReceipt('${esc(id)}')">📎 عرض</button>` : '';
+  const rows = r.rows.filter(x => TTAB === 'all' || x.src === TTAB);
+  const tab = (k, label) => `<button class="${TTAB === k ? '' : 'gray'}" onclick="TTAB='${k}';renderTreasury()">${label}</button>`;
+  $('main').innerHTML = `<h2>🏛️ حساب الشركة</h2>
+    <div class="kpis">${kpi('🏛️', 'رصيد خزنة الشركة', fmt(r.balance), r.balance < 0 ? 'neg' : 'pos')}${kpi('💵', 'وارد كاش من الفروع', fmt(t.cash), 'pos')}${kpi('🏦', 'وارد عن طريق جيديا', fmt(t.gedia), 'pos')}${kpi('📥', 'إجمالي الوارد (كاش + جيديا)', fmt(t.inflow), 'pos')}
+      ${kpi('💸', 'مدفوع للموردين', fmt(t.supplierPaid), 'neg')}${kpi('🏢', 'مصروفات الشركة', fmt(t.expenses), 'neg')}${kpi('⏳', 'مديونية الشركة للموردين', fmt(t.supplierDebt), t.supplierDebt > 0 ? 'neg' : 'pos')}</div>
+    ${r.canWrite ? `<div class="card"><h3>➕ تسجيل مصروف شركة (بيتخصم من الخزنة)</h3><div class="grid2">
+      <div><label>التاريخ</label><input type="date" id="cd" value="${todayStr()}"></div><div><label>المبلغ</label><input id="ca" type="number" min="0" step="any"></div>
+      <div><label>التصنيف (اختياري)</label><input id="cc"></div><div><label>السبب (إجباري)</label><input id="cr"></div></div>
+      <label>صورة إيصال (اختياري)</label><input id="ci" type="file" accept="image/*"><button onclick="sendCExp(this)">حفظ</button></div>` : ''}
+    <div class="chips">${r.byBranch.map(b => `<span>${esc(b.branch)}: كاش <b>${fmt(b.cash)}</b> · جيديا <b>${fmt(b.gedia)}</b></span>`).join('')}</div>
+    <div class="card"><div class="filters"><div><label>من يوم</label><input type="date" value="${TF.from}" onchange="TF.from=this.value;renderTreasury()"></div>
+      <div><label>إلى يوم</label><input type="date" value="${TF.to}" onchange="TF.to=this.value;renderTreasury()"></div></div></div>
+    <div class="tabs">${tab('all', 'الكل')}${tab('cash', '💵 كاش من الفروع')}${tab('gedia', '🏦 عن طريق جيديا')}${tab('out', '📤 مصروفات ودفعات')}</div>
+    <div class="card scroll"><table><tr><th>وقت التسجيل</th><th>اليوم</th><th>النوع</th><th>الفرع / الجهة</th><th>البيان</th><th>المبلغ</th><th>الرصيد بعدها</th><th>سجّله</th><th>إيصال</th></tr>` +
+    (rows.map(x => `<tr><td>${esc(x.ts)}</td><td>${esc(x.day)}</td><td><span class="badge ${x.src === 'out' ? 'b-inv' : 'b-pay'}">${esc(x.kind)}</span></td><td>${esc(x.party)}</td><td class="wrap">${esc(x.detail)}</td>
+      <td><b class="${x.sign > 0 ? 'pos' : 'neg'}">${x.sign > 0 ? '+' : '−'}${fmt(x.amount)}</b></td><td>${fmt(x.balance)}</td><td>${esc(mr(x.by))}</td><td>${rcpt(x.receipt)}</td></tr>`).join('') || '<tr><td colspan="9">لا توجد حركات</td></tr>') + '</table></div>';
+}
+async function sendCExp(btn) {
+  btn.disabled = true;
+  try { await call('addCompanyExpense', TOKEN, { date: $('cd').value, category: $('cc').value, amount: $('ca').value, reason: $('cr').value, image: await pickImage('ci') }); renderTreasury(); }
+  catch (e) {} finally { btn.disabled = false; }
+}
+
+/* ---------- المراقب: إدارة المستخدمين (تعديل أي حاجة) ---------- */
+const ROLES = { monitor: 'مراقب', accountant: 'محاسب', supplier: 'موردين', branch: 'فرع' };
+let UL = [];
+async function renderUsers() { $('main').innerHTML = 'جاري التحميل...'; UL = await call('listUsers', TOKEN); drawUsers(); }
+function drawUsers() {
+  $('main').innerHTML = `<div class="row" style="align-items:center;margin-bottom:12px"><h2 style="margin:0">👥 المستخدمين والصلاحيات</h2>
+      <button style="flex:0 0 auto" onclick="userForm(-1)">＋ مستخدم جديد</button></div>
+    <div id="uform"></div><input id="uq" placeholder="🔍 ابحث بالاسم أو الكود أو الفرع..." oninput="userCards()"><div id="ugrid" class="sgrid"></div>`;
+  userCards();
+}
+function userCards() {
+  const q = ($('uq') ? $('uq').value : '').trim().toLowerCase();
+  $('ugrid').innerHTML = UL.map((u, i) => ({ u, i })).filter(x => !q || (x.u.name + ' ' + x.u.code + ' ' + x.u.branch + ' ' + x.u.job).toLowerCase().indexOf(q) >= 0)
+    .map(({ u, i }) => `<div class="scard ucard"><div class="row" style="align-items:center;gap:10px"><div class="avatar" style="flex:none">${esc(u.name.slice(0, 1))}</div>
+      <div><div class="nm">${esc(mr(u.name))}</div><div class="cd">كود: <b>${esc(u.code)}</b></div></div></div>
+      <div style="margin:12px 0 10px"><span class="badge ${u.role === 'branch' ? 'b-inv' : 'b-pay'}">${ROLES[u.role]}</span></div>
+      <div class="mini"><span>${esc(u.job) || '—'}</span><span>${u.branch ? '🏪 ' + esc(u.branch) : ''}</span></div>
+      <div class="row" style="margin-top:12px"><button class="sm gray" onclick="userForm(${i})">✏️ تعديل</button><button class="sm red" onclick="delUser(${i})">🗑️ حذف</button></div></div>`).join('') ||
+    '<div class="card">لا يوجد مستخدمين</div>';
+}
+function userForm(i) {
+  const u = i >= 0 ? UL[i] : { name: '', code: '', job: '', role: 'branch', branch: '' };
+  const brs = [...new Set(UL.map(x => x.branch).filter(Boolean))];
+  $('uform').innerHTML = `<div class="card"><h3>${i >= 0 ? '✏️ تعديل: ' + esc(mr(u.name)) : '➕ مستخدم جديد'}</h3><div class="grid2">
+    <div><label>الاسم</label><input id="fn" value="${esc(u.name)}"></div>
+    <div><label>الكود (للدخول)</label><input id="fc" value="${esc(u.code)}"></div>
+    <div><label>الوظيفة</label><input id="fj" value="${esc(u.job)}"></div>
+    <div><label>الصلاحية</label><select id="fr" onchange="$('fbBox').classList.toggle('hide', this.value !== 'branch')">${Object.keys(ROLES).map(r => `<option value="${r}" ${r === u.role ? 'selected' : ''}>${ROLES[r]}</option>`).join('')}</select></div>
+    <div id="fbBox" class="${u.role === 'branch' ? '' : 'hide'}"><label>الفرع (اختار من الفروع أو اكتب فرع جديد)</label><input id="fb" list="brs" value="${esc(u.branch)}"><datalist id="brs">${brs.map(b => `<option value="${esc(b)}">`).join('')}</datalist></div>
+    <div><label>${i >= 0 ? 'باسورد جديد (سيبه فاضي لو مش هتغيره)' : 'الباسورد'}</label><input id="fp" type="password" autocomplete="new-password"></div></div>
+    <div class="row"><button onclick="saveUser(${i}, this)">حفظ</button><button class="gray" onclick="$('uform').innerHTML=''">إلغاء</button></div></div>`;
+  $('uform').scrollIntoView({ behavior: 'smooth' });
+}
+async function saveUser(i, btn) {
+  const p = { name: $('fn').value, code: $('fc').value, job: $('fj').value, role: $('fr').value, branch: $('fb') ? $('fb').value : '', password: $('fp').value };
+  btn.disabled = true;
+  try { UL = i >= 0 ? await call('updateUser', TOKEN, UL[i].code, p) : await call('addUser', TOKEN, p); META = null; drawUsers(); }
+  catch (e) {} finally { btn.disabled = false; }
+}
+async function delUser(i) {
+  if (!confirm('حذف ' + UL[i].name + '؟ السجلات القديمة اللي سجلها هتفضل زي ما هي.')) return;
+  UL = await call('deleteUser', TOKEN, UL[i].code); META = null; drawUsers();
+}
+
+/* على الموبايل الجداول بتتحول لكروت: بنكتب اسم العمود على كل خانة */
+function labelTables() {
+  document.querySelectorAll('#main table').forEach(t => {
+    const heads = [...t.querySelectorAll('th')].map(x => x.textContent.trim());
+    t.querySelectorAll('tr').forEach(tr => {
+      if (tr.querySelector('th')) { tr.classList.add('hrow'); return; }
+      [...tr.children].forEach((td, i) => { if (heads[i]) td.setAttribute('data-label', heads[i]); });
+    });
+  });
+}
+// لو الصفحة اتعملها refresh والجلسة لسه شغالة، يرجع يفتح من غير دخول تاني
+(async function restore() {
+  let tk = null; try { tk = sessionStorage.getItem('tk'); } catch (e) {}
+  if (!tk) return;
+  try { USER = await rawCall('whoami', [tk]); TOKEN = tk; startApp(); }
+  catch (e) { try { sessionStorage.removeItem('tk'); } catch (_) {} }
+})();
+new MutationObserver(labelTables).observe($('main'), { childList: true, subtree: true });
+</script>
+</body>
+</html>
